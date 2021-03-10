@@ -92,6 +92,7 @@ def identify_atomic_proposition(s) -> str:
                 return s[0:j-1] + str(result) + s[i+1:]
             return s[0:j] + str(result) + s[i+1:]
 
+
 def solve_propositional_sentence(t, s, explain=False) -> bool:
     '''Solves the propositional sentence inputted by the user by iteratively
     passing it onto identify_atomic_proposition until the statement is composed
@@ -133,7 +134,7 @@ def solve_propositional_sentence(t, s, explain=False) -> bool:
 
 
 if __name__ == '__main__':
-    print('\n========== GETTING USER INPUT ==========\n')
+    print('\n========== GETTING USER INPUT ==========')
     t, s = get_user_input()
 
     print('\n========== SOLVING PROPOSITION ==========\n')
