@@ -1,7 +1,6 @@
-import pytest
 from part1 import solve_logical_expression, solve_propositional_sentence
 
-class Test:
+class TestClass:
     def test_one(self):
         cases = [
             (['T', '^', 'T'], True),
@@ -51,10 +50,3 @@ class Test:
         ]
         for (raw, expected) in cases:
             assert solve_propositional_sentence(*raw) == expected
-
-
-for (raw, expected) in cases:
-    r = solve_propositional_sentence(*raw)
-    b = r == expected
-    if b == False:
-        print(raw, expected, r)
