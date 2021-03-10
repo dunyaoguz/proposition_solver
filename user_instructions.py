@@ -11,7 +11,7 @@ Refer to propositional variables using their index in the list you entered.
 As an example, to refer to the first truth assignment in the list, simply enter 0.
 Do not include more variables than you input, and make sure to use the right indices.
 
-The negation symbol must directly precede the propositional variable, without space.
+The negation symbol must directly precede the propositional variable or the paranthesis, without space.
 Every other logical operator must be separated with a space.
 
 Use paranthesis to dictate conditional precedence.
@@ -57,7 +57,7 @@ def get_user_input() -> (List[str], str):
             parsed_s = '(' + s.strip() + ')'
             # Check for input errors
             l = s.replace('(', '').replace(')', '').split()
-            variables = [int(_.lstrip('~')) for _ in l if _.lstrip('~').isdigit()]
+            variables = set([int(_.lstrip('~')) for _ in l if _.lstrip('~').isdigit()])
             if len(variables) > len(parsed_t) or max(variables) >= len(parsed_t):
                 raise ValueError
             break
