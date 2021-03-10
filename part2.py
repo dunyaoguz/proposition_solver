@@ -18,7 +18,6 @@ def find_all_truth_permutations(t) -> List[List[bool]]:
             List of different combination of values the propositional variables
             can take.
     '''
-
     truth_values = [['T', 'F']]*len(t)
 
     def recur(truth_values, truth_set=[], result=[]):
@@ -27,8 +26,6 @@ def find_all_truth_permutations(t) -> List[List[bool]]:
             result.append(truth_set)
             return
 
-        # FOR DEBUG
-        # print(truth_set, result)
         for truth_value in truth_values[0]:
             recur(truth_values[1:], truth_set + [truth_value], result)
 
@@ -46,10 +43,9 @@ def print_truth_table(vals, s) -> None:
         vals: list
             List of all the possible truth values that the propositional
             variables given by the user can assume.
-        s: string
+        s: str
             The propositional sentence provided by the user.
     '''
-
     results = []
     delim = '   |   '
 
@@ -66,18 +62,16 @@ def print_truth_table(vals, s) -> None:
         if i == len(vals)-1:
             print((len(row)+4)*('-'))
 
-    if set(results) == 'False':
+    if set(results) == {'False'}:
         assessment = 'CONTRADICTION'
-    elif set(results) == 'True':
+    elif set(results) == {'True'}:
         assessment = 'TAUTOLOGY'
     else:
         assessment = 'CONTINGENCY'
-
     print(f'\nThe statement is a {assessment}.\n')
 
 
 if __name__ == '__main__':
-
     print('\n============ GETTING USER INPUT ============\n')
     t, s = get_user_input()
 
