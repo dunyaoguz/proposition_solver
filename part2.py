@@ -47,7 +47,7 @@ def print_truth_table(vals, s) -> None:
             The propositional sentence provided by the user.
     '''
     results = []
-    delim = '   |   '
+    delim = '    |    '
 
     for i, v in enumerate(vals):
         r = solve_propositional_sentence(v, s)
@@ -55,6 +55,9 @@ def print_truth_table(vals, s) -> None:
         row = str(i).rjust(4) + delim + delim.join(v) + delim + r.ljust(7)
 
         if i == 0:
+            print((len(row)+4)*('-'))
+            col = delim.join(['P' + str(i) for i in range(len(vals[0]))])
+            print(delim.rjust(14) + col + delim + 'Result'.ljust(5))
             print((len(row)+4)*('-'))
 
         print('||' + row + '||')
