@@ -69,7 +69,7 @@ def identify_atomic_proposition(s) -> str:
     Returns:
     --------
         str
-            A condensed version of th given propositional sentence.
+            A condensed version of the given propositional sentence.
     '''
     stack = []
     is_negation = {}
