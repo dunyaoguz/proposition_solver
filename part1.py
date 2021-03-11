@@ -92,7 +92,6 @@ def identify_atomic_proposition(s) -> str:
                 return s[0:j-1] + str(result) + s[i+1:]
             return s[0:j] + str(result) + s[i+1:]
 
-
 def solve_propositional_sentence(t, s, explain=False) -> bool:
     '''Solves the propositional sentence inputted by the user by iteratively
     passing it onto identify_atomic_proposition until the statement is composed
@@ -120,7 +119,10 @@ def solve_propositional_sentence(t, s, explain=False) -> bool:
 
     # If the user only provided one variable, return
     if len(s.split(' ')) == 1:
-        return 'True' if s == '(T)' else 'False'
+        if s.count('~')%2 == 1:
+            return 'True' if 'F' in s else 'False'
+        else:
+            return 'True' if 'T' in s else 'False'
 
     # If the user provided more than one variable, solve the propositional
     # sentence by sequentially solving the atomic propositions within it
