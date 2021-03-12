@@ -54,7 +54,7 @@ def get_user_input() -> (List[str], str):
                 raise ValueError
             break
         except ValueError:
-            print('Valid inputs may only contain T and F. Please try again.')
+            print('\nValid inputs may only contain T and F. Please try again.\n')
             continue
 
     # Get propositonal sentence
@@ -68,8 +68,12 @@ def get_user_input() -> (List[str], str):
             vars = [int(_.lstrip('~')) for _ in sl if _.lstrip('~').isdigit()]
             if len(set(vars)) > len(parsed_t) or max(vars) >= len(parsed_t):
                 raise ValueError
+            # Check for paranthesis errors
+            if s.count('(') != s.count(')'):
+                raise ValueError
             break
         except ValueError:
-            print('Incompatible number of variables or indices. Try again.')
+            print('\nIncompatible number of variables, indices or paranthesis.')
+            print('Please try again.\n')
             continue
     return parsed_t, parsed_s

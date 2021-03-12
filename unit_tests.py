@@ -1,4 +1,4 @@
-from part1 import solve_logical_expression, solve_propositional_sentence
+from part1 import solve_logical_expression, solve_propositional_sentence, precedence_util
 
 class TestClass:
     def test_one(self):
@@ -53,6 +53,24 @@ class TestClass:
             ((['T', 'T', 'F'], '(((0 -> 1) ^ (0 -> 2)) -> (0 -> (1 ^ 2)))'), 'True'),
             ((['T', 'F', 'T'], '(((0 -> 1) ^ (0 -> 2)) -> (0 -> (1 ^ 2)))'), 'True'),
             ((['F', 'F', 'F'], '(((0 -> 1) ^ (0 -> 2)) -> (0 -> (1 ^ 2)))'), 'True'),
+            ((['T', 'F', 'F'], '(0 ^ 1 v 2)'), 'False'),
+            ((['T', 'F', 'F'], '(0 v 1 ^ 2)'), 'True'),
+            ((['T', 'F', 'T'], '(0 -> 1 ^ 2)'), 'False'),
+            ((['F', 'T', 'T'], '(0 -> 1 ^ 2)'), 'True'),
+            ((['F', 'F', 'T'], '(0 <-> 1 -> 2)'), 'False'),
         ]
         for (raw, expected) in cases:
             assert solve_propositional_sentence(*raw) == expected
+
+    def test_three(self):
+        cases = [
+            ([True, '<->', False, '^', True, '->', False], [True, '<->', False, '->', False]),
+            ([True, '->', False, 'v', True, '^', False], [True, '->', False, 'v', False]),
+            ([True, '<->', True], [True]),
+            ([True, '<->', False, '->', False], [True, '<->', True]),
+            ([True, 'v', False, '^', False], [True, 'v', False]),
+            ([True, 'v', False, 'v', False], [True, 'v', False]),
+            ([True, '^', False, '->', False], [False, '->', False])
+        ]
+        for (raw, expected) in cases:
+            assert precedence_util(raw) == expected

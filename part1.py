@@ -29,6 +29,32 @@ def logic_util(t0, symbol, t1) -> bool:
     elif symbol == '<->':
         return t0 == t1
 
+def precedence_util(p):
+    '''Util function used in evaluate_logical_expression. Solves the part of
+    a logical expression that must be solved first based on the precedence
+    of logical operators.
+
+    Parameters:
+    -----------
+        p: list
+            An atomic proposition within the propositional sentence entered by
+            the user, in list form.
+
+    Returns:
+    --------
+        list
+            Condensed form of the given atomic proposition, in which the
+            operation that has the highest precedence has been solved.
+    '''
+    # Get correct order of operations
+    precedence_rules = {'^': 0, 'v': 1, '->': 2, '<->': 3}
+    current_order = {_:i for i, _ in enumerate(p) if i%2 == 1}
+    correct_order = sorted(current_order.keys(), key=precedence_rules.get)
+
+    # Solve the 1st proposition that needs to solved based on precedence
+    i = current_order[correct_order[0]]
+    result = logic_util(p[i-1], p[i], p[i+1])
+    return p[0:i-1] + [result] + p[i+2:]
 
 def solve_logical_expression(exp):
     '''Solves a logical expression inside a paranthesis. Can be composed of
@@ -48,13 +74,12 @@ def solve_logical_expression(exp):
     true, false = ['T', '~F', 'True', '~False'], ['F', '~T', 'False', '~True']
     p = [True if _ in true else False if _ in false else _ for _ in exp]
 
-    result = logic_util(*p[0:3])
-    if len(p) > 3:
-        while len(p) > 3:
-            p = [result] + p[3:]
-            result = logic_util(*p[0:3])
-    return result
-
+    if len(p) == 3:
+        return logic_util(*p[0:3])
+    else:
+        while len(p) >= 3:
+            p = precedence_util(p)
+    return p[0]
 
 def identify_atomic_proposition(s) -> str:
     '''Identifies the atomic proposition within a given propositional sentence
