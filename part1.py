@@ -1,4 +1,5 @@
 from user_instructions import get_user_input
+from typing import List
 
 
 def logic_util(t0, symbol, t1) -> bool:
@@ -30,7 +31,7 @@ def logic_util(t0, symbol, t1) -> bool:
         return t0 == t1
 
 
-def precedence_util(p):
+def precedence_util(p) -> List[str]:
     '''Util function used in evaluate_logical_expression. Solves the part of
     a logical expression that must be solved first based on the precedence
     of logical operators.
@@ -58,7 +59,7 @@ def precedence_util(p):
     return p[0:i-1] + [result] + p[i+2:]
 
 
-def solve_logical_expression(exp):
+def solve_logical_expression(exp) -> bool:
     '''Solves a logical expression inside a paranthesis. Can be composed of
     two or more variables.
 
