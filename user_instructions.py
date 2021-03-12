@@ -27,8 +27,7 @@ Use paranthesis to dictate conditional precedence.
 The negation symbol must directly precede variables or parantheses.
 Every other logical operator must be separated with a space.
 
-Acceptable input example: ((0 ^ 1) v (~3 -> 1)) <-> ~2
-Unacceptable input example: 0 ^ 1 v 2 [Must be `(0 ^ 1) v 2` or `0 ^ (1 v 2)`]
+Example input: ((0 ^ 1) v (~3 -> 1)) <-> ~2
 '''
 
 
